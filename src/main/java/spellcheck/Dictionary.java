@@ -1,6 +1,9 @@
 
 package spellcheck;
 
+import com.google.inject.Inject;
+import com.google.inject.name.Named;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
@@ -12,7 +15,8 @@ public class Dictionary implements KnowledgeBank {
 
 	private Set<String> words;
 
-	public Dictionary(String fileName) throws IOException {
+    @Inject
+	public Dictionary(@Named("Filename") String fileName) throws IOException {
         try (Scanner scanner = new Scanner(new File(fileName))) {
             words = new TreeSet<>();
             while (scanner.hasNextLine()) {

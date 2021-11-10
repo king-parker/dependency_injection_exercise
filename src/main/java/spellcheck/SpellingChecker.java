@@ -1,8 +1,9 @@
 
 package spellcheck;
 
+import com.google.inject.Inject;
+
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
 import java.util.SortedMap;
 import java.util.TreeMap;
@@ -13,6 +14,7 @@ public class SpellingChecker {
     private Extractor extractor;
     private KnowledgeBank knowledgeBank;
 
+    @Inject
     public SpellingChecker(Fetcher fetcher, Extractor extractor, KnowledgeBank knowledgeBank) {
         this.fetcher = fetcher;
         this.extractor = extractor;

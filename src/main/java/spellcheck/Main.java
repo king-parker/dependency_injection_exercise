@@ -1,22 +1,23 @@
 
 package spellcheck;
 
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import java.io.IOException;
-import java.net.URL;
 import java.util.SortedMap;
 
 
 public class Main {
 
 	public static void main(String[] args) {
+		String fileLocation = args[0];
+
+		Injector injector = Guice.createInjector(new RealModule());
+		SpellingChecker realChecker = injector.getInstance(SpellingChecker.class);
 	
 		try {
-			String fileLocation = args[0];
-			Fetcher fetcher = new URLFetcher();
-			Extractor extractor = new WordExtractor();
-			KnowledgeBank knowledgeBank = new Dictionary("dict.txt");
-			SpellingChecker checker = new SpellingChecker(fetcher, extractor, knowledgeBank);
-			SortedMap<String, Integer> mistakes = checker.check(fileLocation);
+			SortedMap<String, Integer> mistakes = realChecker.check(fileLocation);
 			System.out.println(mistakes);
 		}
 		catch (IOException e) {
